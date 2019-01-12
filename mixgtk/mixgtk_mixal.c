@@ -1,7 +1,7 @@
 /* -*-c-*- -------------- mixgtk_mixal.c :
  * Implementation of the functions declared in mixgtk_mixal.h
  * ------------------------------------------------------------------
- * Copyright (C) 2001, 2002, 2004, 2006, 2007 Free Software Foundation, Inc.
+ * Copyright (C) 2001, 2002, 2004, 2006, 2007, 2019 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -77,8 +77,7 @@ init_symbols_ (void)
   symbols_dlg_ = mixgtk_widget_factory_get_dialog (MIXGTK_SYMBOLS_DIALOG);
   g_assert (symbols_dlg_);
   symbols_view_ = GTK_TREE_VIEW
-    (mixgtk_widget_factory_get_child_by_name
-     (MIXGTK_SYMBOLS_DIALOG, SYMBOLS_VIEW_NAME_));
+    (mixgtk_widget_factory_get_child_by_name (SYMBOLS_VIEW_NAME_));
   g_assert (symbols_view_);
 
   mixgtk_fontsel_set_font (MIX_FONT_SYMBOLS, GTK_WIDGET (symbols_view_));

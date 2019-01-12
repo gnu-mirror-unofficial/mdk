@@ -114,7 +114,7 @@ mixgtk_widget_factory_get (mixgtk_dialog_id_t dlg, mixgtk_widget_id_t widget)
 {
   g_assert ((long)widget < WIDGET_NO_);
 
-  return mixgtk_widget_factory_get_child_by_name (dlg, names_[widget]);
+  return mixgtk_widget_factory_get_child_by_name (names_[widget]);
 }
 
 
@@ -126,10 +126,10 @@ mixgtk_widget_factory_get_dialog (mixgtk_dialog_id_t dlg)
 }
 
 GtkWidget *
-mixgtk_widget_factory_get_child_by_name (mixgtk_dialog_id_t dlg,
-					 const gchar *name)
+mixgtk_widget_factory_get_child_by_name (const gchar *name)
 {
-  g_assert (dlg < DLG_NO_);
   g_assert (name != NULL);
-  return GTK_WIDGET (gtk_builder_get_object (builder_, dnames_[dlg]));
+  GtkWidget *w = GTK_WIDGET (gtk_builder_get_object (builder_, name));
+  if (!w) g_warning ("Widget '%s' not found", name);
+  return w;
 }

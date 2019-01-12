@@ -1,7 +1,7 @@
 /* -*-c-*- ---------------- mixgtk_widgets.h :
  * glade-based factory of mixvm widgets
  * ------------------------------------------------------------------
- * Copyright (C) 2001, 2004, 2006, 2007 Free Software Foundation, Inc.
+ * Copyright (C) 2001, 2004, 2006, 2007, 2019 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -94,8 +94,6 @@ mixgtk_widget_factory_get (mixgtk_dialog_id_t dlg, mixgtk_widget_id_t widget);
 
 /* Get a widget by name */
 extern GtkWidget *
-mixgtk_widget_factory_get_child_by_name (mixgtk_dialog_id_t dlg,
-					 const gchar *name);
+mixgtk_widget_factory_get_child_by_name (const gchar *name);
 
 #endif /* MIXGTK_WIDGETS_H */
-

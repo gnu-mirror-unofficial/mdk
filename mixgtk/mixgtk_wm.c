@@ -40,6 +40,8 @@ typedef struct window_info_t_
   GtkCheckMenuItem *menu;
   const gchar *menu_name;
   const gchar *config_key;
+  const gchar *toolbar_name;
+  const gchar *handle_name;
   gboolean detached;
   void (*detach) (void);
   void (*attach) (void);
@@ -88,11 +90,14 @@ static void on_nb_switch_ (GtkNotebook *notebook, GtkWidget *page,
                            guint page_num, gpointer user_data);
 
 static window_info_t_ infos_[] = {
-  {MIXGTK_MIXVM_DIALOG, NULL, NULL, "detach_vm", "MIX.detach",
+  {MIXGTK_MIXVM_DIALOG, NULL, NULL,
+   "detach_vm", "MIX.detach", "mixvm_toolbar", "mixvm_tb_handle",
    FALSE, mixvm_detach_, mixvm_attach_},
-  {MIXGTK_MIXAL_DIALOG, NULL, NULL, "detach_source", "MIXAL.detach",
+  {MIXGTK_MIXAL_DIALOG, NULL, NULL,
+   "detach_source", "MIXAL.detach", "mixal_toolbar", "mixal_tb_handle",
    FALSE, mixal_detach_, mixal_attach_},
-  {MIXGTK_DEVICES_DIALOG, NULL, NULL, "detach_dev", "Devices.detach",
+  {MIXGTK_DEVICES_DIALOG, NULL, NULL,
+   "detach_dev", "Devices.detach", "dev_toolbar", "dev_tb_handle",
    FALSE, dev_detach_, dev_attach_}
 };
 
@@ -252,8 +257,7 @@ init_info_ (void)
 
       infos_[k].menu =
         GTK_CHECK_MENU_ITEM
-        (mixgtk_widget_factory_get_child_by_name (MIXGTK_MAIN,
-                                                  infos_[k].menu_name));
+         (mixgtk_widget_factory_get_child_by_name (infos_[k].menu_name));
       g_assert (infos_[k].menu != NULL);
       txt = mixgtk_config_get (infos_[k].config_key);
       infos_[k].detached = txt && !g_ascii_strcasecmp (txt, DETACH_YES_);
@@ -450,8 +454,7 @@ init_tb_ (void)
   gint style = mixgtk_config_tb_style ();
 
   tb_menu_ = GTK_CHECK_MENU_ITEM
-    (mixgtk_widget_factory_get_child_by_name (MIXGTK_MAIN,
-  					      TB_MENU_NAME_));
+    (mixgtk_widget_factory_get_child_by_name (TB_MENU_NAME_));
   g_assert (tb_menu_ != NULL);
 
   gtk_check_menu_item_set_active (tb_menu_, mixgtk_config_show_toolbars ());
@@ -475,8 +478,7 @@ init_tb_ (void)
 
   for (k = 0; k < 4; ++k)
     {
-      GtkWidget *item =
-        mixgtk_widget_factory_get_child_by_name (MIXGTK_MAIN, names[k]);
+      GtkWidget *item = mixgtk_widget_factory_get_child_by_name (names[k]);
       g_signal_connect (G_OBJECT (item),
                         "activate",
                         G_CALLBACK (on_tb_style_), GUINT_TO_POINTER (k));
@@ -497,18 +499,17 @@ static void
 set_tb_style_ (guint style)
 {
   static const gchar *TB_NAME = "main_toolbar";
-  static const gchar *TB_DNAME = "dlg_toolbar";
 
   gint k;
 
-  GtkToolbar *tb = GTK_TOOLBAR
-    (mixgtk_widget_factory_get_child_by_name (MIXGTK_MAIN, TB_NAME));
+  GtkToolbar *tb =
+    GTK_TOOLBAR (mixgtk_widget_factory_get_child_by_name (TB_NAME));
   gtk_toolbar_set_style (tb, style);
 
   for (k = 0; k < INF_NO_; ++k)
     {
       GtkToolbar *tb = GTK_TOOLBAR
-        (mixgtk_widget_factory_get_child_by_name (infos_[k].dialog, TB_DNAME));
+        (mixgtk_widget_factory_get_child_by_name (infos_[k].toolbar_name));
       gtk_toolbar_set_style (tb, style);
     }
 }
@@ -521,7 +522,7 @@ show_toolbars_ (gboolean show)
   gint k;
 
   GtkWidget *handle =
-    mixgtk_widget_factory_get_child_by_name (MIXGTK_MAIN, HANDLE_NAME);
+    mixgtk_widget_factory_get_child_by_name (HANDLE_NAME);
 
   if (show)
     gtk_widget_show (handle);
@@ -531,7 +532,7 @@ show_toolbars_ (gboolean show)
   for (k = 0; k < INF_NO_; ++k)
     {
       GtkWidget *hd =
-        mixgtk_widget_factory_get_child_by_name (infos_[k].dialog, HANDLE_NAME);
+        mixgtk_widget_factory_get_child_by_name (infos_[k].handle_name);
       if (show) gtk_widget_show (hd); else gtk_widget_hide (hd);
     }
 
@@ -544,7 +545,7 @@ init_autosave_ (void)
 #define AUTOSAVE_ITEM_ "save_on_exit"
 
   GtkCheckMenuItem *item = GTK_CHECK_MENU_ITEM
-    (mixgtk_widget_factory_get_child_by_name (MIXGTK_MAIN, AUTOSAVE_ITEM_));
+    (mixgtk_widget_factory_get_child_by_name (AUTOSAVE_ITEM_));
   if (item)
     {
       gtk_check_menu_item_set_active (item, mixgtk_config_is_autosave ());
@@ -559,8 +560,7 @@ init_about_ (void)
   GtkWidget *label;
   about_ = mixgtk_widget_factory_get_dialog (MIXGTK_ABOUT_DIALOG);
   g_assert (about_ != NULL);
-  label = mixgtk_widget_factory_get_child_by_name (MIXGTK_ABOUT_DIALOG,
-						   VERSION_LABEL_);
+  label = mixgtk_widget_factory_get_child_by_name (VERSION_LABEL_);
   g_assert (label != NULL);
   gtk_label_set_text (GTK_LABEL (label), VERSION);
   gtk_widget_show (label);

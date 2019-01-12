@@ -185,8 +185,7 @@ init_dialog_ (void)
   g_assert (dialog_ != NULL);
   for (k = 0; k < SIZE_; ++k)
     {
-      childs_[k] = mixgtk_widget_factory_get_child_by_name
-	(MIXGTK_WORD_DIALOG, WGT_NAMES_[k]);
+      childs_[k] = mixgtk_widget_factory_get_child_by_name (WGT_NAMES_[k]);
       g_assert (childs_[k] != NULL);
     }
 }

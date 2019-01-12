@@ -1,7 +1,7 @@
 /* -*-c-*- -------------- mixgtk_cmd_dispatcher.c :
  * Implementation of the functions declared in mixgtk_external.h
  * ------------------------------------------------------------------
- * Copyright (C) 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
+ * Copyright (C) 2006, 2007, 2008, 2009, 2019 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -95,8 +95,7 @@ init_widgets_ (void)
 
   for (k = 0; k < ext_wdg_no; ++k)
     {
-      ext_wdg_[k] = mixgtk_widget_factory_get_child_by_name
-        (MIXGTK_EXTERNPROG_DIALOG, ext_wdg_names_[k]);
+      ext_wdg_[k] = mixgtk_widget_factory_get_child_by_name (ext_wdg_names_[k]);
       g_assert (ext_wdg_[k]);
     }
 
