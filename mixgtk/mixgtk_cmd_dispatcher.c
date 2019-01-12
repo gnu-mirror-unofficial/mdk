@@ -1,7 +1,7 @@
 /* -*-c-*- -------------- mixgtk_cmd_dispatcher.c :
  * Implementation of the functions declared in mixgtk_cmd_dispatcher.h
  * ------------------------------------------------------------------
- * Copyright (C) 2001, 2002, 2004, 2006, 2007 Free Software Foundation, Inc.
+ * Copyright (C) 2001, 2002, 2004, 2006, 2007, 2019 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -411,14 +411,14 @@ on_command_prompt_key_press_event (GtkEntry *w, GdkEventKey *e, gpointer d)
 
 #ifdef HAVE_LIBHISTORY
   HIST_ENTRY *entry = NULL;
-  if (key == GDK_Up)
+  if (key == GDK_KEY_Up)
     {
       entry = previous_history ();
       if (entry && entry->line)
 	gtk_entry_set_text (w, entry->line);
       result = TRUE;
     }
-  if (key == GDK_Down)
+  if (key == GDK_KEY_Down)
     {
       entry = next_history ();
       if (entry && entry->line)
@@ -427,7 +427,7 @@ on_command_prompt_key_press_event (GtkEntry *w, GdkEventKey *e, gpointer d)
     }
 #endif
 
-  if (key == GDK_Tab)
+  if (key == GDK_KEY_Tab)
     {
       complete_command_ ();
       result = TRUE;

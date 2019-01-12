@@ -1,7 +1,7 @@
 /* -*-c-*- -------------- mixgtk_widgets.c :
  * Implementation of the functions declared in mixgtk_widgets.h
  * ------------------------------------------------------------------
- * Copyright (C) 2001, 2004, 2006, 2007, 2014 Free Software Foundation, Inc.
+ * Copyright (C) 2001, 2004, 2006, 2007, 2014, 2019 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,6 @@
 
 
 #include <unistd.h>
-#include <glade/glade.h>
 #include <mixlib/mix.h>
 #include "mixgtk_config.h"
 #include "mixgtk_widgets.h"
@@ -84,17 +83,10 @@ static const gchar *names_[] = {
 #define WIDGET_NO_ (sizeof (names_) / sizeof (names_[0]))
 
 /* the glade specs */
-static GladeXML *xml_[DLG_NO_] = {NULL};
+static GtkBuilder *builder_ = NULL;
 
 /* the xml file name */
 static const gchar *file_ = NULL;
-
-static void init_xml_ (mixgtk_dialog_id_t dlg)
-{
-  xml_[dlg] = glade_xml_new (file_, dnames_[dlg], NULL);
-  glade_xml_signal_autoconnect (xml_[dlg]);
-  g_assert (xml_[dlg] != NULL);
-}
 
 /* create a new factory from an xml glade file */
 gboolean
@@ -103,20 +95,16 @@ mixgtk_widget_factory_init (void)
   if (!file_)
     {
       const gchar *glade_file = GLADE_FILE;
-      glade_init ();
       if (access (glade_file, R_OK)) {
 	if (access (LOCAL_GLADE_FILE, R_OK)) return FALSE;
 	glade_file = LOCAL_GLADE_FILE;
       }
       file_ = g_strdup (glade_file);
-    }
-  else
-    {
-      gint k;
-      for (k = 0; k < DLG_NO_; ++k) if (xml_[k]) xml_[k] = NULL;
+      builder_ = gtk_builder_new_from_file (file_);
+      g_assert (builder_);
+      gtk_builder_connect_signals (builder_, NULL);
     }
 
-  init_xml_ (MIXGTK_MAIN);
   return TRUE;
 }
 
@@ -134,9 +122,7 @@ GtkWidget *
 mixgtk_widget_factory_get_dialog (mixgtk_dialog_id_t dlg)
 {
   g_assert (dlg < DLG_NO_);
-
-  if (!xml_[dlg]) init_xml_ (dlg);
-  return glade_xml_get_widget (xml_[dlg], dnames_[dlg]);
+  return GTK_WIDGET (gtk_builder_get_object (builder_, dnames_[dlg]));
 }
 
 GtkWidget *
@@ -145,6 +131,5 @@ mixgtk_widget_factory_get_child_by_name (mixgtk_dialog_id_t dlg,
 {
   g_assert (dlg < DLG_NO_);
   g_assert (name != NULL);
-  if (!xml_[dlg]) init_xml_ (dlg);
-  return glade_xml_get_widget (xml_[dlg], name);
+  return GTK_WIDGET (gtk_builder_get_object (builder_, dnames_[dlg]));
 }

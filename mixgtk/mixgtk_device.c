@@ -1,7 +1,7 @@
 /* -*-c-*- ---------------- mixgtk_device.c :
  * actual types for mixgtk devices
  * ------------------------------------------------------------------
- * Copyright (C) 2001, 2002, 2004, 2005, 2006, 2007, 2008 Free Software Foundation, Inc.
+ * Copyright (C) 2001, 2002, 2004, 2005, 2006, 2007, 2008, 2019 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -480,11 +480,17 @@ mixgtk_device_set_format (mix_device_type_t dev, gboolean dec)
 }
 
 
+static gpointer
+combo_child_ ()
+{
+  return gtk_bin_get_child (GTK_BIN (combo_));
+}
+
 static mix_device_type_t
 get_device_idx_ (void)
 {
   int k;
-  const gchar *name = gtk_entry_get_text (GTK_ENTRY (GTK_BIN (combo_)->child));
+  const gchar *name = gtk_entry_get_text (GTK_ENTRY (combo_child_ ()));
   for (k = 0; k <= LAST_BIN_DEV_; ++k)
     if (!strcmp (name, DEF_NAMES_[k])) break;
   return k;
@@ -504,7 +510,7 @@ init_devform_ (void)
   combo_ = mixgtk_widget_factory_get_child_by_name
     (MIXGTK_DEVFORM_DIALOG, "dev_combo");
   g_assert (combo_);
-  gtk_editable_set_editable (GTK_EDITABLE (GTK_BIN (combo_)->child), FALSE);
+  gtk_editable_set_editable (GTK_EDITABLE (combo_child_ ()), FALSE);
 }
 
 void

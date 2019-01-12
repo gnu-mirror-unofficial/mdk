@@ -1,7 +1,7 @@
 /* -*-c-*- -------------- mixgtk_fontsel.c :
  * Implementation of the functions declared in mixgtk_fontsel.h
  * ------------------------------------------------------------------
- * Copyright (C) 2001, 2004, 2006, 2007, 2008 Free Software Foundation, Inc.
+ * Copyright (C) 2001, 2004, 2006, 2007, 2008, 2019 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,8 @@
 #include "mixgtk_device.h"
 #include "mixgtk_fontsel.h"
 
-static GtkFontSelectionDialog *fontsel_dialog_ = NULL;
+static GtkFontChooserDialog *fontsel_dialog_ = NULL;
+#define FONTSEL_ GTK_FONT_CHOOSER (fontsel_dialog_)
 
 static const gchar *keys_[MIX_FONT_NO] = {
   "MIX.font", "Prompt.font", "Log.font", "MIXAL.font", "Devices.font",
@@ -87,8 +88,7 @@ mixgtk_fontsel_query_font (mixgtk_font_t f, GtkWidget **w, size_t no)
   if (!fontsel_dialog_) init_fontsel_ ();
 
   current = mixgtk_config_get (keys_[f]);
-  gtk_font_selection_dialog_set_font_name (fontsel_dialog_,
-                                           current? current : default_font_);
+  gtk_font_chooser_set_font (FONTSEL_, current? current : default_font_);
 
   while (result == GTK_RESPONSE_APPLY)
     {
@@ -98,7 +98,7 @@ mixgtk_fontsel_query_font (mixgtk_font_t f, GtkWidget **w, size_t no)
           gint k;
           mixgtk_config_update
             (keys_[f],
-             gtk_font_selection_dialog_get_font_name (fontsel_dialog_));
+             gtk_font_chooser_get_font (FONTSEL_));
           for (k = 0; k < no; ++k)
             mixgtk_fontsel_set_font (f, w[k]);
           ret = TRUE;
@@ -117,8 +117,7 @@ on_all_fonts_activate (void)
   if (!fontsel_dialog_) init_fontsel_ ();
 
   current = mixgtk_config_get (keys_[MIX_FONT_DEFAULT]);
-  gtk_font_selection_dialog_set_font_name (fontsel_dialog_,
-                                           current? current : default_font_);
+  gtk_font_chooser_set_font (FONTSEL_, current? current : default_font_);
 
   while (result == GTK_RESPONSE_APPLY)
     {
@@ -126,7 +125,7 @@ on_all_fonts_activate (void)
       if (result != GTK_RESPONSE_CANCEL)
         {
           gint k;
-          current = gtk_font_selection_dialog_get_font_name (fontsel_dialog_);
+          current = gtk_font_chooser_get_font (FONTSEL_);
 
           for (k = 0; k < MIX_FONT_NO; ++k)
             mixgtk_config_update (keys_[k], current);

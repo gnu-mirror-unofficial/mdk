@@ -185,7 +185,8 @@ on_clear_breakpoints_activate (GtkWidget *w, gpointer data)
 void
 on_save_on_exit_toggle (GtkWidget *w, gpointer data)
 {
-  mixgtk_config_set_autosave (GTK_CHECK_MENU_ITEM (w)->active);
+  gboolean active = gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (w));
+  mixgtk_config_set_autosave (active);
 }
 
 void

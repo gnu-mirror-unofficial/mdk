@@ -1,7 +1,7 @@
 /* -*-c-*- -------------- mixgtk_input.c :
  * Implementation of the functions declared in mixgtk_input.h
  * ------------------------------------------------------------------
- * Copyright (C) 2001, 2002, 2004, 2006, 2007 Free Software Foundation, Inc.
+ * Copyright (C) 2001, 2002, 2004, 2006, 2007, 2019 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -136,14 +136,14 @@ on_word_sign_changed (GtkEditable *sign, gpointer *data)
       mix_word_t w =
         mix_word_new (atoi (gtk_entry_get_text (GTK_ENTRY (childs_[DEC_]))));
 
-      g_signal_handlers_block_by_func (GTK_OBJECT (sign),
+      g_signal_handlers_block_by_func (sign,
                                        on_word_sign_changed, data);
 
       if (txt[0] != '+' && txt[0] != '-') txt[0] = '+';
       gtk_editable_delete_text (sign, 0, 1);
       gtk_editable_insert_text (sign, txt, 1, &pos);
 
-      g_signal_handlers_unblock_by_func (GTK_OBJECT (sign),
+      g_signal_handlers_unblock_by_func (sign,
                                          on_word_sign_changed, data);
       set_word_ (txt[0] == '-' ? mix_word_negative (w) : w);
     }
@@ -202,13 +202,10 @@ set_word_ (mix_word_t word)
   g_snprintf (BUFFER, SIZE, "%s%d", neg ? "-" : "", val);
 
 
-  g_signal_handlers_block_by_func (GTK_OBJECT (childs_[DEC_]),
-                                   on_word_dec_changed, NULL);
-  g_signal_handlers_block_by_func (GTK_OBJECT (childs_[SIGN_]),
-                                   on_word_sign_changed, NULL);
+  g_signal_handlers_block_by_func (childs_[DEC_], on_word_dec_changed, NULL);
+  g_signal_handlers_block_by_func (childs_[SIGN_], on_word_sign_changed, NULL);
   for (k = B1_; k <= B5_; ++k)
-    g_signal_handlers_block_by_func (GTK_OBJECT (childs_[k]),
-                                     on_word_byte_changed, NULL);
+    g_signal_handlers_block_by_func (childs_[k], on_word_byte_changed, NULL);
 
   gtk_entry_set_text (GTK_ENTRY (childs_[DEC_]), BUFFER);
   gtk_entry_set_text (GTK_ENTRY (childs_[SIGN_]), neg ? "-" : "+");
@@ -221,11 +218,7 @@ set_word_ (mix_word_t word)
     }
 
   for (k = B1_; k <= B5_; ++k)
-    g_signal_handlers_unblock_by_func (GTK_OBJECT (childs_[k]),
-                                       on_word_byte_changed, NULL);
-  g_signal_handlers_unblock_by_func (GTK_OBJECT (childs_[DEC_]),
-                                     on_word_dec_changed, NULL);
-  g_signal_handlers_unblock_by_func (GTK_OBJECT (childs_[SIGN_]),
-                                     on_word_sign_changed, NULL);
+    g_signal_handlers_unblock_by_func (childs_[k], on_word_byte_changed, NULL);
+  g_signal_handlers_unblock_by_func (childs_[DEC_], on_word_dec_changed, NULL);
+  g_signal_handlers_unblock_by_func (childs_[SIGN_], on_word_sign_changed, NULL);
 }
-

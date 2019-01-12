@@ -1,7 +1,7 @@
 /* -*-c-*- -------------- mixgtk_mixvm.c :
  * Implementation of the functions declared in mixgtk_mixvm.h
  * ------------------------------------------------------------------
- * Copyright (C) 2001, 2002, 2004, 2006, 2007, 2008 Free Software Foundation, Inc.
+ * Copyright (C) 2001, 2002, 2004, 2006, 2007, 2008, 2019 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -258,31 +258,37 @@ mixgtk_mixvm_update_vm_widgets (void)
 
 
 /* update cmp flag */
+static gboolean
+button_active_ (GtkWidget *widget)
+{
+  return gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
+}
+
 void
 on_cmp_e_toggled (GtkWidget *widget, gpointer data)
 {
-  if (GTK_TOGGLE_BUTTON (widget)->active)
+  if (button_active_ (widget))
     mix_vm_set_cmpflag (vm_, mix_EQ);
 }
 
 void
 on_cmp_l_toggled (GtkWidget *widget, gpointer data)
 {
-  if (GTK_TOGGLE_BUTTON (widget)->active)
+  if (button_active_ (widget))
     mix_vm_set_cmpflag (vm_, mix_LESS);
 }
 
 void
 on_cmp_g_toggled (GtkWidget *widget, gpointer data)
 {
-  if (GTK_TOGGLE_BUTTON (widget)->active)
+  if (button_active_ (widget))
     mix_vm_set_cmpflag (vm_, mix_GREAT);
 }
 
 void
 on_overflow_toggled (GtkWidget *widget, gpointer data)
 {
-  mix_vm_set_overflow (vm_, GTK_TOGGLE_BUTTON (widget)->active);
+  mix_vm_set_overflow (vm_, button_active_ (widget));
 }
 
 void
@@ -532,4 +538,3 @@ init_mem_ (void)
 
   return TRUE;
 }
-

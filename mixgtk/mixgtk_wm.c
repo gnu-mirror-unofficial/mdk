@@ -1,7 +1,7 @@
 /* -*-c-*- -------------- mixgtk_wm.c :
  * Implementation of the functions declared in mixgtk_wm.h
  * ------------------------------------------------------------------
- * Copyright (C) 2001, 2002, 2004, 2006, 2007, 2008 Free Software Foundation, Inc.
+ * Copyright (C) 2001, 2002, 2004, 2006, 2007, 2008, 2019 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -197,10 +197,10 @@ on_attach_toggled (GtkCheckMenuItem *item)
   for (k = 0; k < INF_NO_; ++k)
     if (item == infos_[k].menu) break;
   g_return_if_fail (k < INF_NO_);
-  if (item->active) mixgtk_wm_detach_window (k);
+  gboolean active = gtk_check_menu_item_get_active (item);
+  if (active) mixgtk_wm_detach_window (k);
   else mixgtk_wm_attach_window (k);
-  mixgtk_config_update (infos_[k].config_key,
-                        (item->active)? DETACH_YES_ : DETACH_NO_);
+  mixgtk_config_update (infos_[k].config_key, active? DETACH_YES_ : DETACH_NO_);
 }
 
 void
@@ -216,8 +216,8 @@ on_window_hide (GtkWidget *w)
 void
 on_show_toolbars_toggled (GtkCheckMenuItem *item)
 {
-  if (item->active != mixgtk_config_show_toolbars ())
-    show_toolbars_ (item->active);
+  gboolean active = gtk_check_menu_item_get_active (item);
+  if (active != mixgtk_config_show_toolbars ()) show_toolbars_ (active);
 }
 
 void
@@ -426,7 +426,7 @@ init_dev_ (void)
                                   GTK_POLICY_AUTOMATIC,
                                   GTK_POLICY_AUTOMATIC);
 
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (page), devs);
+  gtk_container_add (GTK_CONTAINER (page), devs);
 
   infos_[MIXGTK_DEVICES_WINDOW].widget = page;
 
@@ -664,6 +664,3 @@ update_attach_buttons_ (void)
   gtk_tool_item_set_visible_horizontal (detach_button_, wants_detach);
   gtk_tool_item_set_visible_vertical (detach_button_, wants_detach);
 }
-
-
-
