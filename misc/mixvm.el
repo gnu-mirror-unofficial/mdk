@@ -1,12 +1,12 @@
 ;;; mixvm.el --- mdk's mixvm / Emacs gud interaction
-;; Copyright (C) 2001 Free Software Foundation, Inc.
-     
+;; Copyright (C) 2001, 2019 Free Software Foundation, Inc.
+
 ;; Author: Philip Ellis King <pking@pdq.net>
 ;; Maintainer: Philip Ellis King <pking@pdq.net>
 ;; Created: 12 Feb 2001
 ;; Version: 0.2
 ;; Keywords: tools
-     
+
 
 ;;; Commentary:
 ;; mixvm.el provides an interface between mdk's mixvm and Emacs,
@@ -58,9 +58,9 @@
        ;; Extract the frame position from the marker.
        gud-last-frame
        (cons (substring gud-mixvm-marker-acc (match-beginning 1) (match-end 1))
-             (string-to-int (substring gud-mixvm-marker-acc
-                                       (match-beginning 2)
-                                       (match-end 2))))
+             (string-to-number (substring gud-mixvm-marker-acc
+                                          (match-beginning 2)
+                                          (match-end 2))))
 
        ;; Append any text before the marker to the output we're going
        ;; to return - we don't include the marker in this text.
