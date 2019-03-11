@@ -147,7 +147,7 @@ fill_symbols_ (const mix_symbol_table_t *table)
 static void
 init_clist_ (void)
 {
-  GtkStockItem item;
+  // GtkStockItem item;
 
   GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
   GtkCellRenderer *bprenderer = gtk_cell_renderer_pixbuf_new ();
@@ -165,7 +165,7 @@ init_clist_ (void)
 
   gtk_tree_view_set_model (clist_, GTK_TREE_MODEL (clist_store_));
   g_object_unref (G_OBJECT (clist_store_));
-  gtk_tree_view_set_rules_hint (clist_, TRUE);
+  // gtk_tree_view_set_rules_hint (clist_, TRUE);
 
   gtk_tree_view_append_column
     (clist_,
@@ -189,15 +189,15 @@ init_clist_ (void)
                                                "text", CLIST_CODE_COL,
                                                NULL));
 
-  if (gtk_stock_lookup (GTK_STOCK_STOP, &item))
-    {
-      bp_stock_id_ = item.stock_id;
-    }
+  /* if (gtk_stock_lookup (GTK_STOCK_STOP, &item)) */
+  /*   { */
+  /*     bp_stock_id_ = item.stock_id; */
+  /*   } */
 
-  if (gtk_stock_lookup (GTK_STOCK_GO_FORWARD, &item))
-    {
-      pc_stock_id_ = item.stock_id;
-    }
+  /* if (gtk_stock_lookup (GTK_STOCK_GO_FORWARD, &item)) */
+  /*   { */
+  /*     pc_stock_id_ = item.stock_id; */
+  /*   } */
 
   symbols_dlg_ = NULL;
   symbols_view_ = NULL;

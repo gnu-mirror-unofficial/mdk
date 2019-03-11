@@ -195,6 +195,7 @@ init_input_widgets_ (void)
   gtk_entry_completion_set_minimum_key_length (completion, 1);
   gtk_entry_completion_set_text_column (completion, 0);
   gtk_entry_set_completion (input_dlg_entry_, completion);
+  gtk_widget_hide (input_dlg_);
 }
 
 static gboolean
@@ -339,7 +340,7 @@ mixgtk_device_construct_gui_ (struct mixgtk_device_t *dev)
         gtk_tree_view_new_with_model (GTK_TREE_MODEL (bindev->store));
 
       gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (dev->widget), FALSE);
-      gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (dev->widget), TRUE);
+      // gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (dev->widget), TRUE);
 
       for (k = 0; k < BIN_DEV_COL_; ++k)
 	{
@@ -593,8 +594,8 @@ on_devdir_browse_clicked ()
     gtk_file_chooser_dialog_new (_("Devices folder"),
                                  GTK_WINDOW (devdir_dlg_),
                                  GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
-                                 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                 GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+                                 "_Cancel", GTK_RESPONSE_CANCEL,
+                                 "_Open", GTK_RESPONSE_ACCEPT,
                                  NULL);
 
   if (current != NULL)

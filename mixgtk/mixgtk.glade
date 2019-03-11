@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.22.1 -->
 <interface>
-  <requires lib="gtk+" version="3.2"/>
+  <requires lib="gtk+" version="3.0"/>
   <object class="GtkDialog" id="about_dialog">
     <property name="can_focus">False</property>
     <property name="border_width">2</property>
@@ -65,10 +65,11 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
-                  <object class="GtkVBox" id="vbox9">
+                  <object class="GtkBox" id="vbox9">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="border_width">15</property>
+                    <property name="orientation">vertical</property>
                     <property name="spacing">10</property>
                     <child>
                       <object class="GtkLabel" id="label1441">
@@ -232,7 +233,7 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
           </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="hbox1">
+          <object class="GtkBox" id="hbox1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="border_width">25</property>
@@ -369,9 +370,6 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
           </packing>
         </child>
         <child>
-          <placeholder/>
-        </child>
-        <child>
           <object class="GtkFixed" id="fixed2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -387,8 +385,8 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
                 <signal name="clicked" handler="on_devset_button_clicked" swapped="no"/>
               </object>
               <packing>
-                <property name="x">233</property>
-                <property name="y">31</property>
+                <property name="x">241</property>
+                <property name="y">34</property>
               </packing>
             </child>
             <child>
@@ -417,6 +415,19 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
               <packing>
                 <property name="x">24</property>
                 <property name="y">38</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="dev_combo">
+                <property name="width_request">200</property>
+                <property name="height_request">15</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="margin_right">16</property>
+                <property name="popup_fixed_width">False</property>
+              </object>
+              <packing>
+                <property name="x">92</property>
               </packing>
             </child>
             <child>
@@ -453,19 +464,6 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
                 <property name="y">34</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkComboBox" id="dev_combo">
-                <property name="width_request">100</property>
-                <property name="height_request">67</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_right">89</property>
-              </object>
-              <packing>
-                <property name="x">92</property>
-                <property name="y">22</property>
-              </packing>
-            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -494,9 +492,10 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
       <placeholder/>
     </child>
     <child>
-      <object class="GtkVBox" id="vbox4">
+      <object class="GtkBox" id="vbox4">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
         <child>
           <object class="GtkHandleBox" id="dev_tb_handle">
             <property name="visible">True</property>
@@ -597,9 +596,10 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
           </packing>
         </child>
         <child>
-          <object class="GtkVBox" id="dev_container">
+          <object class="GtkBox" id="dev_container">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
             <child>
               <placeholder/>
             </child>
@@ -676,9 +676,10 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
           </packing>
         </child>
         <child>
-          <object class="GtkVBox" id="vbox2">
+          <object class="GtkBox" id="vbox2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
             <property name="homogeneous">True</property>
             <child>
               <object class="GtkFixed" id="fixed3">
@@ -894,10 +895,11 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
           </packing>
         </child>
         <child>
-          <object class="GtkVBox" id="vbox1">
+          <object class="GtkBox" id="vbox1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="border_width">12</property>
+            <property name="orientation">vertical</property>
             <child>
               <object class="GtkLabel" id="label225">
                 <property name="visible">True</property>
@@ -940,7 +942,6 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
     </action-widgets>
   </object>
   <object class="GtkDialog" id="input_dialog">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">MIX Console input</property>
     <property name="resizable">False</property>
@@ -987,10 +988,11 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
           </packing>
         </child>
         <child>
-          <object class="GtkVBox" id="vbox7">
+          <object class="GtkBox" id="vbox7">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="border_width">3</property>
+            <property name="orientation">vertical</property>
             <property name="homogeneous">True</property>
             <child>
               <object class="GtkLabel" id="label1438">
@@ -1041,10 +1043,11 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
       <placeholder/>
     </child>
     <child>
-      <object class="GtkVBox" id="main_vbox">
+      <object class="GtkBox" id="main_vbox">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="border_width">2</property>
+        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
           <object class="GtkMenuBar" id="mainmenubar">
@@ -1717,9 +1720,10 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="prompt_vbox">
+              <object class="GtkBox" id="prompt_vbox">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkScrolledWindow" id="mixlog_scrolledwindow">
                     <property name="visible">True</property>
@@ -1792,9 +1796,10 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
       <placeholder/>
     </child>
     <child>
-      <object class="GtkVBox" id="vbox5">
+      <object class="GtkBox" id="vbox5">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
         <child>
           <object class="GtkHandleBox" id="mixal_tb_handle">
             <property name="visible">True</property>
@@ -1925,9 +1930,10 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
           </packing>
         </child>
         <child>
-          <object class="GtkVBox" id="mixal_container">
+          <object class="GtkBox" id="mixal_container">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
             <child>
               <placeholder/>
             </child>
@@ -1961,9 +1967,10 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
       <placeholder/>
     </child>
     <child>
-      <object class="GtkVBox" id="vbox8">
+      <object class="GtkBox" id="vbox8">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
         <child>
           <object class="GtkHandleBox" id="mixvm_tb_handle">
             <property name="visible">True</property>
@@ -2029,14 +2036,15 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
             <property name="border_width">5</property>
             <property name="label_xalign">0</property>
             <child>
-              <object class="GtkHBox" id="mixvm_widget">
+              <object class="GtkBox" id="mixvm_widget">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
-                  <object class="GtkVBox" id="vbox6">
+                  <object class="GtkBox" id="vbox6">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="border_width">1</property>
+                    <property name="orientation">vertical</property>
                     <property name="spacing">1</property>
                     <child>
                       <object class="GtkFrame" id="frame3">
@@ -2352,7 +2360,7 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkHBox" id="hbox22">
+                              <object class="GtkBox" id="hbox22">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <child>
@@ -2395,7 +2403,7 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkHBox" id="hbox7">
+                      <object class="GtkBox" id="hbox7">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <child>
@@ -2405,7 +2413,7 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
                             <property name="border_width">2</property>
                             <property name="label_xalign">0</property>
                             <child>
-                              <object class="GtkHBox" id="hbox6">
+                              <object class="GtkBox" id="hbox6">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="border_width">1</property>
@@ -2516,7 +2524,7 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
                             <property name="border_width">2</property>
                             <property name="label_xalign">0</property>
                             <child>
-                              <object class="GtkHBox" id="hbox2">
+                              <object class="GtkBox" id="hbox2">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="border_width">4</property>
@@ -2585,7 +2593,7 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
                         <property name="border_width">2</property>
                         <property name="label_xalign">0</property>
                         <child>
-                          <object class="GtkHBox" id="hbox4">
+                          <object class="GtkBox" id="hbox4">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="border_width">5</property>
@@ -2782,7 +2790,7 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
                     <property name="xscale">0</property>
                     <property name="yscale">0</property>
                     <child>
-                      <object class="GtkHBox" id="hbox36">
+                      <object class="GtkBox" id="hbox36">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="spacing">2</property>

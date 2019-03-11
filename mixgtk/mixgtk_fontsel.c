@@ -43,7 +43,7 @@ static void
 init_fontsel_ (void)
 {
   fontsel_dialog_ =
-    GTK_FONT_SELECTION_DIALOG
+    GTK_FONT_CHOOSER_DIALOG
     (mixgtk_widget_factory_get_dialog (MIXGTK_FONTSEL_DIALOG));
   g_assert (fontsel_dialog_ != NULL);
 }
@@ -68,7 +68,8 @@ mixgtk_fontsel_set_font (mixgtk_font_t f, GtkWidget *w)
 
   if (font_desc)
     {
-      gtk_widget_modify_font (w, font_desc);
+      // deprecated... some silly CSS stuff instead
+      // gtk_widget_override_font (w, font_desc);
       gtk_widget_queue_draw (w);
       pango_font_description_free (font_desc);
     }

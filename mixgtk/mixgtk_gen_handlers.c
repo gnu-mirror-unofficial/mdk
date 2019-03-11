@@ -1,7 +1,7 @@
 /* -*-c-*- -------------- mixgtk_gen_handlers.c :
  * Implementation of the functions declared in mixgtk_gen_handlers.h
  * ------------------------------------------------------------------
- * Copyright (C) 2001, 2002, 2004, 2006, 2007 Free Software Foundation, Inc.
+ * Copyright (C) 2001, 2002, 2004, 2006, 2007, 2019 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,8 +40,8 @@ get_chooser_ (const gchar *title, gboolean src)
         (gtk_file_chooser_dialog_new ("gmixvm",
                                       NULL,
                                       GTK_FILE_CHOOSER_ACTION_OPEN,
-                                      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                      GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+                                      "_Cancel", GTK_RESPONSE_CANCEL,
+                                      "_Open", GTK_RESPONSE_ACCEPT,
                                       NULL));
       src_filter = gtk_file_filter_new ();
       gtk_file_filter_add_pattern (src_filter, "*.mixal");
@@ -194,5 +194,3 @@ on_save_activate (GtkWidget *w, gpointer data)
 {
   mixgtk_config_save ();
 }
-
-
