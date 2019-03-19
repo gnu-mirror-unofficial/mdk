@@ -1,7 +1,7 @@
 /* ---------------------- xmix_vm.c :
  * Implementation of the functions declared in xmix_vm.h
  * ------------------------------------------------------------------
- * Copyright (C) 2000, 2003, 2004, 2007, 2010, 2013 Free Software Foundation, Inc.
+ * Copyright (C) 2000, 2003, 2004, 2007, 2010, 2013, 2019 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -333,7 +333,7 @@ inp_handler_ (mix_vm_t *vm, const mix_ins_t *ins)
   dev = get_dev_ (vm, ins->fspec);
   fail_if_not_ (vm, dev != NULL, MIX_VM_ERROR_BAD_DEVICE_NO);
 
-  fail_if_not_ (vm, MEM_CELLS_NO_ - addr > mix_device_block_size (dev),
+  fail_if_not_ (vm, MEM_CELLS_NO_ - addr >= mix_device_block_size (dev),
                 MIX_VM_ERROR_BAD_ACCESS);
 
   fail_if_not_ (vm, mix_device_read (dev, get_cell_ptr_ (vm, addr)),
@@ -359,7 +359,7 @@ out_handler_ (mix_vm_t *vm, const mix_ins_t *ins)
   dev = get_dev_ (vm, ins->fspec);
   fail_if_not_ (vm, dev != NULL, MIX_VM_ERROR_BAD_DEVICE_NO);
 
-  fail_if_not_ (vm, MEM_CELLS_NO_ - addr > mix_device_block_size (dev),
+  fail_if_not_ (vm, MEM_CELLS_NO_ - addr >= mix_device_block_size (dev),
                 MIX_VM_ERROR_BAD_ACCESS);
 
   fail_if_not_ (vm, mix_device_write (dev, get_cell_ptr_ (vm, addr)),
