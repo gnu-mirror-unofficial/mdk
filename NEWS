@@ -8,6 +8,15 @@ See the end for copying conditions.
 Please send mdk bug reports to bug-mdk@gnu.org.
 
 ---------------------------------------------------------------------------
+* Version 1.2.11 ()
+
+** Bug fixes:
+
+   - #55877: mixvm.el: obsolete string-to-int removed.
+   - Read/write access to/from highest word of memory (patch #9773 by
+     Kevin Brunnelle).
+
+---------------------------------------------------------------------------
 * Version 1.2.10 (07/01/19)
 
 ** Upgraded dependencies:
