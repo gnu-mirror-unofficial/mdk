@@ -155,7 +155,7 @@ ioc_ (mix_device_t *dev, mix_short_t arg)
 
   if (dev->type >= mix_dev_TAPE_0 && dev->type <= mix_dev_TAPE_7)
     {
-      if (m == 0) rewind (file);
+      if (m == 0 || (ftell (file) + m <= 0 )) rewind (file);
       else fseek (file, m, SEEK_CUR);
     }
   if (dev->type >= mix_dev_DISK_0 && dev->type <= mix_dev_DISK_7)
