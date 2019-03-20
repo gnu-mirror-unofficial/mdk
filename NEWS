@@ -15,6 +15,8 @@ Please send mdk bug reports to bug-mdk@gnu.org.
    - #55877: mixvm.el: obsolete string-to-int removed.
    - Read/write access to/from highest word of memory (patch #9773 by
      Kevin Brunnelle).
+   - Correctly rewind tape when seeking past beginning of file (patch
+     #9974 by Kevin Brunelle).
 
 ---------------------------------------------------------------------------
 * Version 1.2.10 (07/01/19)
