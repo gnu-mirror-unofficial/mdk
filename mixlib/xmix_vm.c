@@ -303,6 +303,7 @@ ioc_handler_ (mix_vm_t *vm, const mix_ins_t *ins)
 {
   mix_address_t addr;
   mix_device_t *dev;
+  mix_word_t val;
 
   g_assert (ins->opcode == mix_opIOC);
 
@@ -312,7 +313,8 @@ ioc_handler_ (mix_vm_t *vm, const mix_ins_t *ins)
   dev = get_dev_ (vm, ins->fspec);
   fail_if_not_ (vm, dev != NULL, MIX_VM_ERROR_BAD_DEVICE_NO);
 
-  fail_if_not_ (vm, mix_device_ioc (dev, addr), MIX_VM_ERROR_DEV_CTL);
+  val = get_rX_ (vm);
+  fail_if_not_ (vm, mix_device_ioc (dev, addr, val), MIX_VM_ERROR_DEV_CTL);
 
   inc_loc_ (vm);
   return TRUE;

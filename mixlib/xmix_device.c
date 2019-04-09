@@ -143,14 +143,20 @@ read_ (mix_device_t *dev, mix_word_t *block)
 }
 
 static gboolean
-ioc_ (mix_device_t *dev, mix_short_t arg)
+ioc_ (mix_device_t *dev, mix_short_t arg, mix_word_t val)
 {
   int m;
   FILE *file;
+  long diskblock;
 
   m = mix_short_magnitude(arg);
   if (mix_short_is_negative(arg)) m = -m;
   m *= sizeof (mix_word_t) * SIZES_[dev->type];
+
+  diskblock = mix_word_magnitude(val);
+  if (mix_word_is_negative(val)) diskblock = -diskblock;
+  diskblock *= sizeof (mix_word_t) * SIZES_[dev->type];
+
   file = mix_io_to_FILE (GET_CHANNEL_(dev));
 
   if (dev->type >= mix_dev_TAPE_0 && dev->type <= mix_dev_TAPE_7)
@@ -160,12 +166,13 @@ ioc_ (mix_device_t *dev, mix_short_t arg)
     }
   if (dev->type >= mix_dev_DISK_0 && dev->type <= mix_dev_DISK_7)
     {
-      if (m == 0) return FALSE;
-      // position disk
+      // move read/write head to block
+      if (m != 0 || diskblock < 0) return FALSE;
+      else fseek (file, diskblock, SEEK_SET);
     }
   if (dev->type == mix_dev_PAPER_TAPE)
     {
-      if (m == 0) return FALSE;
+      if (m != 0) return FALSE;
       rewind (file);
     }
   return TRUE;

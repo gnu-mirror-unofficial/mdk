@@ -272,9 +272,9 @@ read_ (mix_device_t *dev, mix_word_t *block)
 }
 
 static gboolean
-ioc_ (mix_device_t *dev, mix_short_t cmd)
+ioc_ (mix_device_t *dev, mix_short_t cmd, mix_word_t val)
 {
-  return (DEF_DEV_VTABLE_->ioc)(dev, cmd);
+  return (DEF_DEV_VTABLE_->ioc)(dev, cmd, val);
 }
 
 static gboolean

@@ -32,7 +32,7 @@ extern gchar *DEV_DIR_;
 /* table of overridable device operations */
 typedef gboolean (*mix_dev_write_func_t) (mix_device_t *, const mix_word_t *);
 typedef gboolean (*mix_dev_read_func_t) (mix_device_t *, mix_word_t *);
-typedef gboolean (*mix_dev_ioc_func_t) (mix_device_t *, mix_short_t);
+typedef gboolean (*mix_dev_ioc_func_t) (mix_device_t *, mix_short_t, mix_word_t);
 typedef gboolean (*mix_dev_busy_func_t) (const mix_device_t *);
 typedef void (*mix_dev_destroy_t) (mix_device_t *);
 

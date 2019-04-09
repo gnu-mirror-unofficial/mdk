@@ -148,7 +148,7 @@ mix_device_read (mix_device_t *dev, mix_word_t *block);
    >0 - skip forward the given number of blocks
 */
 extern gboolean
-mix_device_ioc (mix_device_t *dev, mix_short_t arg);
+mix_device_ioc (mix_device_t *dev, mix_short_t arg, mix_word_t val);
 
 /*
   Check if a device is busy

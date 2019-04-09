@@ -684,14 +684,17 @@ OPCODE = 34, MOD = I/O unit.
 @noindent
 In all the above instructions, the @samp{MOD} subfile must be in the
 range 0-20, since it denotes the operation's target device. The
-@samp{IOC} instruction only makes sense for tape devices (@samp{MOD} =
-0-7 or 20): it shifts the read/write pointer by the number of words
-given by @samp{M} (if it equals zero, the tape is rewound)@footnote{In
-Knuth's original definition, there are other control operations
-available, but they do not make sense when implementing the block
-devices as disk files (as we do in @sc{mdk} simulator). For the same
-reason, @sc{mdk} devices are always ready, since all input-output
-operations are performed using synchronous system calls.}.
+@samp{IOC} instruction makes sense for magnetic tape devices (@samp{MOD} =
+0-7): it shifts the read/write pointer by the number of blocks
+given by @samp{M} (if it equals zero, the tape is rewound), paper tape
+devices (@samp{MOD} = 20): @samp{M} should be 0, the tape is rewound,
+and disk/drum devices (@samp{MOD} = 8-15): it moves the read/write
+pointer to the block specified in rX and @samp{M} should be 0@footnote{In
+Knuth's original definition, there are other control operations available,
+but they do not make sense when implementing the devices as disk files (as
+we do in @sc{mdk} simulator). For the same reason, @sc{mdk} devices are
+always ready, since all input-output operations are performed using
+synchronous system calls.}.
 
 
 @node Conversion operators, Shift operators, Input-output operators, MIX instruction set

@@ -148,11 +148,11 @@ mix_device_read (mix_device_t *dev, mix_word_t *block)
 }
 
 gboolean
-mix_device_ioc (mix_device_t *dev, mix_short_t arg)
+mix_device_ioc (mix_device_t *dev, mix_short_t arg, mix_word_t val)
 {
   g_return_val_if_fail (dev != NULL, FALSE);
   g_assert (dev->vtable != NULL);
-  return (dev->vtable->ioc) (dev, arg);
+  return (dev->vtable->ioc) (dev, arg, val);
 }
 
 gboolean
