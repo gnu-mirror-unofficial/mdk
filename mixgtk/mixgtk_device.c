@@ -236,7 +236,7 @@ read_cons_ (mix_word_t *block)
   if (result == GTK_RESPONSE_OK)
     {
       text = g_strdup_printf ("%-70s", gtk_entry_get_text (input_dlg_entry_));
-      for (i = 0; i < 70; ++i)
+      for (i = 0; i < SIZES_[mix_dev_CONSOLE]; ++i)
         for (j = 0; j < 5; ++j)
           mix_word_set_byte (block + i, j + 1,
                              mix_char_to_byte
