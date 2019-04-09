@@ -81,8 +81,8 @@ vm_reset_reload_ (mix_vm_t *vm, gboolean is_reload)
 
   if (vm->address_list)
     {
-      g_slist_free (vm->address_list);
-      vm->address_list = NULL;
+      g_queue_free (vm->address_list);
+      vm->address_list = g_queue_new ();
     }
 }
 
@@ -99,7 +99,8 @@ mix_vm_new (void)
   vm->symbol_table = NULL;
   vm->src_file = NULL;
   vm->pred_list = mix_predicate_list_new (vm);
-  vm->address_list = NULL;
+  vm->max_backtrace_amount = MIX_MAX_TRACE_AMOUNT;
+  vm->address_list = g_queue_new ();
   vm->last_error = MIX_VM_ERROR_NONE;
 
   for (i = 0; i < BD_NO_; ++i)
@@ -126,7 +127,7 @@ mix_vm_delete (mix_vm_t * vm)
   if (vm->symbol_table != NULL) mix_symbol_table_delete (vm->symbol_table);
   if (vm->src_file != NULL) mix_src_file_delete (vm->src_file);
   if (vm->pred_list != NULL) mix_predicate_list_delete (vm->pred_list);
-  if (vm->address_list != NULL) g_slist_free (vm->address_list);
+  if (vm->address_list != NULL) g_queue_free (vm->address_list);
   for (i = 0; i < BD_NO_; ++i)
     mix_device_delete (vm->devices[i]);
   mix_vm_clock_delete (vm->clock);
@@ -452,9 +453,14 @@ mix_vm_run (mix_vm_t *vm)
   while ( !is_halted_ (vm) )
     {
       mix_word_to_ins_uncheck (get_cell_ (vm, get_loc_ (vm)), ins);
-      vm->address_list =
-	g_slist_prepend (vm->address_list,
-			 GINT_TO_POINTER ((gint)get_loc_ (vm)));
+      if ( vm->max_backtrace_amount != 0 ) {
+	g_queue_push_head (vm->address_list,
+			   GINT_TO_POINTER ((gint)get_loc_ (vm)));
+	if ( vm->max_backtrace_amount > 0 &&
+	    g_queue_get_length (vm->address_list) > vm->max_backtrace_amount ) {
+	  g_queue_pop_tail (vm->address_list);
+	}
+      }
       if ( !(*ins_handlers_[ins.opcode]) (vm,&ins) )
 	return set_status_ (vm, MIX_VM_ERROR);
       else
@@ -476,9 +482,14 @@ mix_vm_exec_next (mix_vm_t *vm)
   g_return_val_if_fail (vm != NULL, MIX_VM_ERROR);
   if (get_loc_ (vm) >= MIX_VM_CELL_NO) halt_ (vm, TRUE);
   if (is_halted_ (vm)) return set_status_ (vm, MIX_VM_HALT);
-  vm->address_list =
-    g_slist_prepend (vm->address_list,
-		     GINT_TO_POINTER ((gint)get_loc_ (vm)));
+  if ( vm->max_backtrace_amount != 0 ) {
+    g_queue_push_head (vm->address_list,
+		       GINT_TO_POINTER ((gint)get_loc_ (vm)));
+    if ( vm->max_backtrace_amount > 0 &&
+	 g_queue_get_length (vm->address_list) > vm->max_backtrace_amount ) {
+      g_queue_pop_tail (vm->address_list);
+    }
+  }
   mix_word_to_ins_uncheck (get_cell_ (vm, get_loc_ (vm)), ins);
   if (!(*ins_handlers_[ins.opcode]) (vm, &ins))
     return set_status_ (vm, MIX_VM_ERROR);
@@ -698,9 +709,24 @@ mix_vm_get_uptime (const mix_vm_t *vm)
 }
 
 /* Get the list of addresses for executed instructions */
-const GSList *
+GQueue *
 mix_vm_get_backtrace (const mix_vm_t *vm)
 {
   g_return_val_if_fail (vm != NULL, NULL);
-  return get_address_list_ (vm);
+  return vm->address_list;
+}
+
+gint
+mix_vm_get_max_trace (const mix_vm_t *vm)
+{
+  g_return_val_if_fail (vm != NULL, -2);
+  return vm->max_backtrace_amount;
+}
+
+void
+mix_vm_set_max_trace (mix_vm_t *vm, gint val)
+{
+  g_return_if_fail (vm != NULL);
+  g_return_if_fail (val >= -1);
+  vm->max_backtrace_amount = val;
 }

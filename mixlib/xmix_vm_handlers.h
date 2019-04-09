@@ -71,6 +71,7 @@ DEC_FUN (cbpm_);
 DEC_FUN (cbpc_);
 DEC_FUN (cbpo_);
 DEC_FUN (pbt_);
+DEC_FUN (sbt_);
 DEC_FUN (slog_);
 DEC_FUN (pprog_);
 DEC_FUN (psrc_);

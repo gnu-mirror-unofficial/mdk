@@ -86,6 +86,8 @@ mix_vm_command_info_t commands_[] = {
     "strace on|off"},
   { "pbt", cmd_pbt_, N_("Print backtrace of executed instructions"),
     "pbt [INS_NO] (e.g pbt 5)"},
+  { "sbt", cmd_sbt_, N_("Set limit on backtrace of executed instructions"),
+    "sbt [LIMIT] (e.g sbt 100)"},
   { "stime", cmd_stime_, N_("Turn on/off timing statistics"),
     "stime on|off"},
   { "ptime", cmd_ptime_, N_("Print current time statistics"), "ptime"},
@@ -1306,6 +1308,7 @@ gboolean
 cmd_pbt_ (mix_vm_cmd_dispatcher_t *dis, const gchar *arg)
 {
   enum {SIZE = 256};
+  static const gchar *NULLSTR = "(null)";
   static gchar BUFFER[SIZE];
   gint no = atoi (arg);
   gint k = 0, address;
@@ -1314,25 +1317,55 @@ cmd_pbt_ (mix_vm_cmd_dispatcher_t *dis, const gchar *arg)
   char *name =
     file ? g_path_get_basename (mix_src_file_get_path (file)) : NULL;
 
-  const GSList *add = mix_vm_get_backtrace (dis->vm);
-  while (add && (no == 0 || k < no))
+  GQueue *add = mix_vm_get_backtrace (dis->vm);
+  while (g_queue_get_length (add) > k && (no == 0 || k < no))
     {
       BUFFER[0] = '\0';
-      address = GPOINTER_TO_INT (add->data);
+      address = GPOINTER_TO_INT (g_queue_peek_nth (add, k));
       line = mix_vm_get_address_lineno (dis->vm, address);
       if (line && file)
 	{
 	  int j = 0;
 	  g_snprintf (BUFFER, SIZE, "%s", mix_src_file_get_line (file, line));
-	  while (!isspace (BUFFER[j])) j++;
+	  while ( (j < SIZE - 1) && (BUFFER[j] != '\n') && (BUFFER[j] != '\r')
+		  && (BUFFER[j] != '\f') && (BUFFER[j] != '\0') ) j++;
 	  BUFFER[j] = '\0';
 	}
-      if (strlen (BUFFER) == 0)	g_snprintf (BUFFER, SIZE, "%d", address);
+      if ( (strlen (BUFFER) == 0) || !(strcmp(NULLSTR,BUFFER)) )
+	g_snprintf (BUFFER, SIZE, "%d", address);
       fprintf (dis->out, "#%d\t%s\tin %s%s:%d\n", k, BUFFER, name,
 	       MIX_SRC_DEFEXT, line);
       ++k;
-      add = add->next;
     }
+  return TRUE;
+}
+
+gboolean
+cmd_sbt_ (mix_vm_cmd_dispatcher_t *dis, const gchar *arg)
+{
+  gint no = atoi (arg);
+  GQueue *add = mix_vm_get_backtrace (dis->vm);
+
+  if ( strlen(arg) == 0 ) {
+    log_message_ (dis, "Backtrace limit is %d instructions",
+		  mix_vm_get_max_trace(dis->vm));
+  } else {
+    if ( no >= -1 ) {
+      log_message_ (dis, "Backtrace limit changed from %d to %d instructions",
+		    mix_vm_get_max_trace(dis->vm), no);
+      mix_vm_set_max_trace (dis->vm, no);
+
+      /* We might have shrunk the queue and need to resize it */
+      if ( no >= 0 ) {
+	while ( g_queue_get_length (add) > no ) {
+	  g_queue_pop_tail(add);
+	}
+      }
+
+    } else {
+      log_error_ (dis, "Error: %d is not a valid number of instructions.", no);
+    }
+  }
   return TRUE;
 }
 

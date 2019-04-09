@@ -34,6 +34,9 @@
 /* Comparison flag */
 typedef enum { mix_LESS, mix_EQ, mix_GREAT } mix_cmpflag_t;
 
+/* Maximum number of addresses for backtraces: -1 = unlimited, 0 = off */
+enum { MIX_MAX_TRACE_AMOUNT = 500 };
+
 /* Number of memory cells in the virtual machine */
 enum { MIX_VM_CELL_NO = 4000 };
 
@@ -247,9 +250,16 @@ extern mix_time_t
 mix_vm_get_uptime (const mix_vm_t *vm);
 
 /* Get the list of addresses for executed instructions */
-extern const GSList *
+extern GQueue *
 mix_vm_get_backtrace (const mix_vm_t *vm);
 
+/* Get the maximum number of instructions we will trace */
+gint
+mix_vm_get_max_trace (const mix_vm_t *vm);
+
+/* Set the maximum number of instructions we will trace */
+void
+mix_vm_set_max_trace (mix_vm_t *vm, gint val);
 
 #endif /* MIX_VM_H */
 

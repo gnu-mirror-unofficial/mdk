@@ -417,6 +417,15 @@ MIX >
 @end example
 @end deffn
 
+@deffn {debug command} sbt [NUMBER]
+This command changes the limit for the backtrace of executed instructions.
+If the number is omitted, the command prints the current limit.  If you
+use a 0, backtraces are turned off. This can improve performance. If you
+wish for all the instructions to be logged, a -1 will enable that. The
+amount of memory required for unlimited backtraces can be substantial
+for long-running programs.
+@end deffn
+
 @deffn {debug command} pbt [INS_NUMBER]
 This command prints a backtrace of executed instructions. Its optional
 argument @var{ins_number} is the number of instructions to print. If it

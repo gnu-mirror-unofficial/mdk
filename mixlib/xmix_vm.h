@@ -50,6 +50,7 @@ struct mix_vm_t
   mix_vm_status_t status;
   mix_vm_error_t last_error;
   mix_device_t * devices[BD_NO_];
+  gint max_backtrace_amount;    /* the limit of backtraces */
   mix_address_t start_addr;	/* start address of loaded file */
   GTree *line_table;		/* source line no -> address  */
   GTree *address_table;		/* adress -> source line no */
@@ -59,7 +60,7 @@ struct mix_vm_t
   mix_src_file_t *src_file;	/* source of last loaded code file */
   mix_device_factory_t factory; /* the factory for new devices */
   mix_predicate_list_t *pred_list; /* predicates for conditional bps */
-  GSList *address_list;		/* list of executed addresses */
+  GQueue *address_list;		/* list of executed addresses */
 };
 
 /* Macros for accessing/modifying the above structure.
