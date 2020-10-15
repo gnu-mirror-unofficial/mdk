@@ -1,5 +1,5 @@
 # Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2008, 2009,
-#               2010, 2013, 2014, 2015, 2019 Free Software Foundation, Inc.
+#               2010, 2013, 2014, 2015, 2019, 2020 Free Software Foundation, Inc.
 #
 # This file is free software; as a special exception the author gives
 # unlimited permission to copy and/or distribute it, with or without
@@ -93,9 +93,12 @@ AC_ARG_WITH(guile,
 esac], [wguile=true])
 
 if test x$wguile = xtrue; then
-  PKG_CHECK_MODULES(GUILE,guile-2.0 >= 2.0,[wguile=true],[wguile=false])
+  PKG_CHECK_MODULES(GUILE,guile-3.0 >= 3.0,[wguile=true],[wguile=false])
   if test x$wguile = xfalse; then
-    PKG_CHECK_MODULES(GUILE,guile-2.2 >= 2.0,[wguile=true],[wguile=false])
+    PKG_CHECK_MODULES(GUILE,guile-2.2 >= 2.2,[wguile=true],[wguile=false])
+    if test x$wguile = xfalse; then
+      PKG_CHECK_MODULES(GUILE,guile-2.0 >= 2.0,[wguile=true],[wguile=false])
+    fi
   fi
 fi
 
