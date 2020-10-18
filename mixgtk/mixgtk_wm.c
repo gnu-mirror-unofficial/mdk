@@ -41,6 +41,7 @@ typedef struct window_info_t_
   const gchar *menu_name;
   const gchar *config_key;
   const gchar *toolbar_name;
+  const gchar *attach_button;
   gboolean detached;
   void (*detach) (void);
   void (*attach) (void);
@@ -91,13 +92,13 @@ static void on_nb_switch_ (GtkNotebook *notebook, GtkWidget *page,
 
 static window_info_t_ infos_[] = {
   {MIXGTK_MIXVM_DIALOG, NULL, NULL,
-   "detach_vm", "MIX.detach", "mixvm_toolbar",
+   "detach_vm", "MIX.detach", "mixvm_toolbar", "attach_button_mixvm",
    FALSE, mixvm_detach_, mixvm_attach_},
   {MIXGTK_MIXAL_DIALOG, NULL, NULL,
-   "detach_source", "MIXAL.detach", "mixal_toolbar",
+   "detach_source", "MIXAL.detach", "mixal_toolbar", "attach_button_mixal",
    FALSE, mixal_detach_, mixal_attach_},
   {MIXGTK_DEVICES_DIALOG, NULL, NULL,
-   "detach_dev", "Devices.detach", "dev_toolbar",
+   "detach_dev", "Devices.detach", "dev_toolbar", "attach_button_dev",
    FALSE, dev_detach_, dev_attach_}
 };
 
@@ -313,8 +314,7 @@ init_signals_ (void)
         G_OBJECT (mixgtk_widget_factory_get_dialog (infos_[k].dialog));
 
       GObject *button =
-        G_OBJECT (mixgtk_widget_factory_get (infos_[k].dialog,
-                                             MIXGTK_WIDGET_ATTACH_BUTTON));
+        G_OBJECT (mixgtk_widget_factory_get_by_name (infos_[k].attach_button));
 
       g_assert (dialog != NULL);
       g_assert (button != NULL);
@@ -573,8 +573,7 @@ mixvm_attach_ (void)
 static void
 reparent_ (GtkWidget *widget, GtkWidget *parent)
 {
-  gtk_container_remove (GTK_CONTAINER (gtk_widget_get_parent (widget)),
-                        widget);
+  gtk_container_remove (GTK_CONTAINER (gtk_widget_get_parent (widget)), widget);
   gtk_container_add (GTK_CONTAINER (parent), widget);
 }
 
@@ -635,6 +634,7 @@ dev_detach_ (void)
 {
   reparent_ (infos_[MIXGTK_DEVICES_WINDOW].widget, GTK_WIDGET (dev_container_));
 }
+
 
 static void
 on_nb_switch_ (GtkNotebook *notebook, GtkWidget *page,

@@ -569,7 +569,7 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
               </packing>
             </child>
             <child>
-              <object class="GtkToolButton" id="attach_button2">
+              <object class="GtkToolButton" id="attach_button_dev">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="is_important">True</property>
@@ -1674,7 +1674,7 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
                 <property name="is_important">True</property>
                 <property name="label" translatable="yes">Attach</property>
                 <property name="use_underline">True</property>
-                <property name="stock_id">gtk-dnd</property>
+                <property name="stock_id">gtk-revert-to-saved</property>
                 <signal name="clicked" handler="on_attach_all_clicked" swapped="no"/>
               </object>
               <packing>
@@ -1893,7 +1893,7 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
               </packing>
             </child>
             <child>
-              <object class="GtkToolButton" id="attach_button1">
+              <object class="GtkToolButton" id="attach_button_mixal">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="is_important">True</property>
@@ -1965,7 +1965,7 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
                 <property name="is_important">True</property>
                 <property name="label" translatable="yes">Font</property>
                 <property name="use_underline">True</property>
-                <property name="stock_id">gtk-disconnect</property>
+                <property name="stock_id">gtk-select-font</property>
                 <signal name="clicked" handler="on_mix_font_activate" swapped="no"/>
               </object>
               <packing>
@@ -1984,7 +1984,7 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
               </packing>
             </child>
             <child>
-              <object class="GtkToolButton" id="attach_button3">
+              <object class="GtkToolButton" id="attach_button_mixvm">
                 <property name="name">attach_button</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
