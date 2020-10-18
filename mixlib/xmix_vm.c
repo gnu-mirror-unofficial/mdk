@@ -1,7 +1,7 @@
 /* ---------------------- xmix_vm.c :
  * Implementation of the functions declared in xmix_vm.h
  * ------------------------------------------------------------------
- * Copyright (C) 2000, 2003, 2004, 2007, 2010, 2013, 2019 Free Software Foundation, Inc.
+ * Copyright (C) 2000, 2003, 2004, 2007, 2010, 2013, 2019, 2020 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,14 +24,14 @@
 #include "xmix_vm.h"
 
 /* auxiliar functions */
-G_INLINE_FUNC mix_address_t
+static inline mix_address_t
 get_M_ (const mix_vm_t *vm, const mix_ins_t *ins);
-G_INLINE_FUNC mix_word_t
+static inline mix_word_t
 get_V_ (const mix_vm_t *vm, const mix_ins_t *ins);
-G_INLINE_FUNC mix_device_t *
+static inline mix_device_t *
 get_dev_ (mix_vm_t *vm, mix_fspec_t type);
 
-G_INLINE_FUNC mix_address_t
+static inline mix_address_t
 get_M_ (const mix_vm_t *vm, const mix_ins_t *ins)
 {
   if ( ins->index == 0 )
@@ -41,13 +41,13 @@ get_M_ (const mix_vm_t *vm, const mix_ins_t *ins)
                           mix_word_to_short_fast (get_rI_ (vm, ins->index)));
 }
 
-G_INLINE_FUNC mix_word_t
+static inline mix_word_t
 get_V_ (const mix_vm_t *vm, const mix_ins_t *ins)
 {
   return mix_word_get_field (ins->fspec, get_cell_ (vm, get_M_ (vm,ins)));
 }
 
-G_INLINE_FUNC mix_device_t *
+static inline mix_device_t *
 get_dev_ (mix_vm_t *vm, mix_fspec_t type)
 {
   if (type >= BD_NO_) return NULL;
