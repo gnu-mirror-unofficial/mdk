@@ -798,7 +798,7 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
       <action-widget response="-5">button41</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkFontChooserDialog" id="fontsel_dialog_">
+  <object class="GtkFontChooserDialog" id="fontsel_dialog">
     <property name="can_focus">False</property>
     <property name="type_hint">dialog</property>
     <property name="language">en-gb</property>
@@ -1095,11 +1095,10 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
                     </child>
                     <child>
                       <object class="GtkImageMenuItem" id="file_exit">
-                        <property name="label" translatable="yes">E_xit</property>
+                        <property name="label">gtk-quit</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">False</property>
+                        <property name="use_stock">True</property>
                         <signal name="activate" handler="on_file_exit_activate" swapped="no"/>
                         <accelerator key="Q" signal="activate" modifiers="GDK_CONTROL_MASK | GDK_MOD1_MASK"/>
                       </object>
