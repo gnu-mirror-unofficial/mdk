@@ -1,7 +1,7 @@
 /* -*-c-*- -------------- mixgtk_wm.c :
  * Implementation of the functions declared in mixgtk_wm.h
  * ------------------------------------------------------------------
- * Copyright (C) 2001, 2002, 2004, 2006, 2007, 2008, 2019 Free Software Foundation, Inc.
+ * Copyright (C) 2001, 2002, 2004, 2006, 2007, 2008, 2019, 2020 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -84,6 +84,7 @@ static void mixal_attach_ (void);
 static void mixal_detach_ (void);
 static void dev_attach_ (void);
 static void dev_detach_ (void);
+static void reparent_ (GtkWidget *widget, GtkWidget *parent);
 static void update_attach_buttons_ (void);
 static void on_tb_style_ (GtkMenuItem *w, gpointer style);
 static void on_nb_switch_ (GtkNotebook *notebook, GtkWidget *page,
@@ -574,10 +575,17 @@ mixvm_attach_ (void)
 }
 
 static void
+reparent_ (GtkWidget *widget, GtkWidget *parent)
+{
+  gtk_container_remove (GTK_CONTAINER (gtk_widget_get_parent (widget)),
+                        widget);
+  gtk_container_add (GTK_CONTAINER (parent), widget);
+}
+
+static void
 mixvm_detach_ (void)
 {
-  gtk_widget_reparent (infos_[MIXGTK_MIXVM_WINDOW].widget,
-                       GTK_WIDGET (mixvm_container_));
+  reparent_ (infos_[MIXGTK_MIXVM_WINDOW].widget, GTK_WIDGET (mixvm_container_));
 }
 
 static void
@@ -616,8 +624,7 @@ mixal_detach_ (void)
     }
 
   mixgtk_mixal_reparent (stat);
-  gtk_widget_reparent (infos_[MIXGTK_MIXAL_WINDOW].widget,
-                       GTK_WIDGET (mixal_container_));
+  reparent_ (infos_[MIXGTK_MIXAL_WINDOW].widget, GTK_WIDGET (mixal_container_));
 }
 
 static void
@@ -630,8 +637,7 @@ dev_attach_ (void)
 static void
 dev_detach_ (void)
 {
-  gtk_widget_reparent (infos_[MIXGTK_DEVICES_WINDOW].widget,
-                       GTK_WIDGET (dev_container_));
+  reparent_ (infos_[MIXGTK_DEVICES_WINDOW].widget, GTK_WIDGET (dev_container_));
 }
 
 static void
