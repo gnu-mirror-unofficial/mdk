@@ -1,7 +1,7 @@
 /* -*-c-*- -------------- xmix_vm_handlers.c :
  * Implementation of the functions declared in xmix_vm_handlers.h
  * ------------------------------------------------------------------
- * Copyright (C) 2001, 2002, 2003, 2004, 2006, 2007, 2010, 2014 Free Software Foundation, Inc.
+ * Copyright (C) 2001, 2002, 2003, 2004, 2006, 2007, 2010, 2014, 2020 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -314,7 +314,7 @@ cmd_compile_ (mix_vm_cmd_dispatcher_t *dis, const gchar *arg)
           if (gerr && gerr->message) log_error_ (dis, gerr->message);
         }
 
-      if (gerr) g_free (gerr);
+      if (gerr) g_error_free (gerr);
       if (output) g_free (output);
       if (errors) g_free (errors);
 
