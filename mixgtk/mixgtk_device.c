@@ -1,7 +1,7 @@
 /* -*-c-*- ---------------- mixgtk_device.c :
  * actual types for mixgtk devices
  * ------------------------------------------------------------------
- * Copyright (C) 2001, 2002, 2004, 2005, 2006, 2007, 2008, 2019 Free Software Foundation, Inc.
+ * Copyright (C) 2001, 2002, 2004, 2005, 2006, 2007, 2008, 2019, 2020 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -182,7 +182,7 @@ init_input_widgets_ (void)
   input_dlg_ = mixgtk_widget_factory_get_dialog (MIXGTK_INPUT_DIALOG);
   g_assert (input_dlg_);
   input_dlg_entry_ =
-    GTK_ENTRY (mixgtk_widget_factory_get_child_by_name ("input_entry"));
+    GTK_ENTRY (mixgtk_widget_factory_get_by_name ("input_entry"));
   g_assert (input_dlg_entry_);
   GtkEntryCompletion *completion = gtk_entry_completion_new ();
   input_list_ = gtk_list_store_new (1, G_TYPE_STRING);
@@ -502,11 +502,11 @@ init_devform_ (void)
 {
   devdlg_ = mixgtk_widget_factory_get_dialog (MIXGTK_DEVFORM_DIALOG);
   g_assert (devdlg_);
-  dtoggle_ = mixgtk_widget_factory_get_child_by_name ("decradio");
+  dtoggle_ = mixgtk_widget_factory_get_by_name ("decradio");
   g_assert (dtoggle_);
-  wtoggle_ = mixgtk_widget_factory_get_child_by_name ("wordradio");
+  wtoggle_ = mixgtk_widget_factory_get_by_name ("wordradio");
   g_assert (wtoggle_);
-  combo_ = mixgtk_widget_factory_get_child_by_name ("dev_combo");
+  combo_ = mixgtk_widget_factory_get_by_name ("dev_combo");
   g_assert (combo_);
   gtk_editable_set_editable (GTK_EDITABLE (combo_child_ ()), FALSE);
 }
@@ -577,7 +577,7 @@ on_devdir_activate ()
       devdir_dlg_ = mixgtk_widget_factory_get_dialog (MIXGTK_DEVDIR_DIALOG);
       g_assert (devdir_dlg_);
       devdir_entry_ =
-        GTK_ENTRY (mixgtk_widget_factory_get_child_by_name (DEVDIR_ENTRY_NAME));
+        GTK_ENTRY (mixgtk_widget_factory_get_by_name (DEVDIR_ENTRY_NAME));
       g_assert (devdir_entry_);
     }
   gtk_entry_set_text (devdir_entry_, mix_device_get_dir ());

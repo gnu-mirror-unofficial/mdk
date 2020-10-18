@@ -1,7 +1,7 @@
 /* -*-c-*- -------------- mixgtk_input.c :
  * Implementation of the functions declared in mixgtk_input.h
  * ------------------------------------------------------------------
- * Copyright (C) 2001, 2002, 2004, 2006, 2007, 2019 Free Software Foundation, Inc.
+ * Copyright (C) 2001, 2002, 2004, 2006, 2007, 2019, 2020 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -185,7 +185,7 @@ init_dialog_ (void)
   g_assert (dialog_ != NULL);
   for (k = 0; k < SIZE_; ++k)
     {
-      childs_[k] = mixgtk_widget_factory_get_child_by_name (WGT_NAMES_[k]);
+      childs_[k] = mixgtk_widget_factory_get_by_name (WGT_NAMES_[k]);
       g_assert (childs_[k] != NULL);
     }
 }
