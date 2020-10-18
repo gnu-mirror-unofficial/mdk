@@ -41,7 +41,6 @@ typedef struct window_info_t_
   const gchar *menu_name;
   const gchar *config_key;
   const gchar *toolbar_name;
-  const gchar *handle_name;
   gboolean detached;
   void (*detach) (void);
   void (*attach) (void);
@@ -92,13 +91,13 @@ static void on_nb_switch_ (GtkNotebook *notebook, GtkWidget *page,
 
 static window_info_t_ infos_[] = {
   {MIXGTK_MIXVM_DIALOG, NULL, NULL,
-   "detach_vm", "MIX.detach", "mixvm_toolbar", "mixvm_tb_handle",
+   "detach_vm", "MIX.detach", "mixvm_toolbar",
    FALSE, mixvm_detach_, mixvm_attach_},
   {MIXGTK_MIXAL_DIALOG, NULL, NULL,
-   "detach_source", "MIXAL.detach", "mixal_toolbar", "mixal_tb_handle",
+   "detach_source", "MIXAL.detach", "mixal_toolbar",
    FALSE, mixal_detach_, mixal_attach_},
   {MIXGTK_DEVICES_DIALOG, NULL, NULL,
-   "detach_dev", "Devices.detach", "dev_toolbar", "dev_tb_handle",
+   "detach_dev", "Devices.detach", "dev_toolbar",
    FALSE, dev_detach_, dev_attach_}
 };
 
@@ -496,11 +495,11 @@ on_tb_style_ (GtkMenuItem *w, gpointer style)
   mixgtk_config_set_tb_style (ui_style);
 }
 
+static const gchar *TB_NAME = "main_toolbar";
+
 static void
 set_tb_style_ (guint style)
 {
-  static const gchar *TB_NAME = "main_toolbar";
-
   gint k;
 
   GtkToolbar *tb =
@@ -518,12 +517,10 @@ set_tb_style_ (guint style)
 static void
 show_toolbars_ (gboolean show)
 {
-  static const gchar *HANDLE_NAME = "tb_handle";
-
   gint k;
 
   GtkWidget *handle =
-    mixgtk_widget_factory_get_child_by_name (HANDLE_NAME);
+    mixgtk_widget_factory_get_child_by_name (TB_NAME);
 
   if (show)
     gtk_widget_show (handle);
@@ -533,7 +530,7 @@ show_toolbars_ (gboolean show)
   for (k = 0; k < INF_NO_; ++k)
     {
       GtkWidget *hd =
-        mixgtk_widget_factory_get_child_by_name (infos_[k].handle_name);
+        mixgtk_widget_factory_get_child_by_name (infos_[k].toolbar_name);
       if (show) gtk_widget_show (hd); else gtk_widget_hide (hd);
     }
 
