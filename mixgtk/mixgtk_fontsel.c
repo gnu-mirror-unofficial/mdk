@@ -1,7 +1,7 @@
 /* -*-c-*- -------------- mixgtk_fontsel.c :
  * Implementation of the functions declared in mixgtk_fontsel.h
  * ------------------------------------------------------------------
- * Copyright (C) 2001, 2004, 2006, 2007, 2008, 2019 Free Software Foundation, Inc.
+ * Copyright (C) 2001, 2004, 2006, 2007, 2008, 2019, 2020 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,9 +68,7 @@ mixgtk_fontsel_set_font (mixgtk_font_t f, GtkWidget *w)
 
   if (font_desc)
     {
-      // deprecated... some silly CSS stuff instead
-      // gtk_widget_override_font (w, font_desc);
-      gtk_widget_queue_draw (w);
+      gtk_widget_override_font (w, font_desc);
       pango_font_description_free (font_desc);
     }
   else
