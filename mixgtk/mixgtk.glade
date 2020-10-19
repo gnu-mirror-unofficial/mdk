@@ -254,8 +254,12 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
             <child>
               <object class="GtkEntry" id="devdir_entry">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="sensitive">False</property>
+                <property name="can_focus">False</property>
                 <property name="editable">False</property>
+                <property name="caps_lock_warning">False</property>
+                <property name="primary_icon_activatable">False</property>
+                <property name="primary_icon_sensitive">False</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -265,11 +269,11 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
             </child>
             <child>
               <object class="GtkButton" id="devdir_browse">
-                <property name="label">gtk-open</property>
+                <property name="label">_Select</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_stock">True</property>
+                <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_devdir_browse_clicked" swapped="no"/>
               </object>
               <packing>
@@ -295,10 +299,10 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
   <object class="GtkDialog" id="devform_dialog">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Device output format</property>
+    <property name="resizable">False</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
     <property name="default_width">320</property>
-    <property name="default_height">140</property>
     <property name="type_hint">dialog</property>
     <signal name="delete-event" handler="gtk_widget_hide" swapped="no"/>
     <signal name="destroy" handler="gtk_widget_hide" swapped="no"/>
@@ -418,19 +422,6 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
               </packing>
             </child>
             <child>
-              <object class="GtkComboBox" id="dev_combo">
-                <property name="width_request">200</property>
-                <property name="height_request">15</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="margin_right">16</property>
-                <property name="popup_fixed_width">False</property>
-              </object>
-              <packing>
-                <property name="x">92</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkRadioButton" id="wordradio">
                 <property name="label" translatable="yes">Word</property>
                 <property name="width_request">0</property>
@@ -464,12 +455,50 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
                 <property name="y">34</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkComboBoxText" id="dev_combo">
+                <property name="width_request">100</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="active">0</property>
+                <property name="has_entry">True</property>
+                <items>
+                  <item>tape0</item>
+                  <item>tape1</item>
+                  <item>tape2</item>
+                  <item>tape3</item>
+                  <item>tape4</item>
+                  <item>tape5</item>
+                  <item>tape6</item>
+                  <item>tape7</item>
+                  <item>disk0</item>
+                  <item>disk1</item>
+                  <item>disk2</item>
+                  <item>disk3</item>
+                  <item>disk4</item>
+                  <item>disk5</item>
+                  <item>disk6</item>
+                  <item>disk7</item>
+                </items>
+                <signal name="changed" handler="on_dev_combo_changed" swapped="no"/>
+                <child internal-child="entry">
+                  <object class="GtkEntry">
+                    <property name="can_focus">False</property>
+                    <property name="text" translatable="yes">tape0</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="x">94</property>
+                <property name="y">3</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
-            <property name="pack_type">end</property>
-            <property name="position">3</property>
+            <property name="padding">5</property>
+            <property name="position">1</property>
           </packing>
         </child>
       </object>
@@ -1098,6 +1127,7 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
                         <property name="label">gtk-quit</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <signal name="activate" handler="on_file_exit_activate" swapped="no"/>
                         <accelerator key="Q" signal="activate" modifiers="GDK_CONTROL_MASK | GDK_MOD1_MASK"/>
@@ -1716,6 +1746,7 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="shadow_type">in</property>
+                    <property name="min_content_height">10</property>
                     <child>
                       <object class="GtkTextView" id="command_log">
                         <property name="visible">True</property>
@@ -1724,6 +1755,7 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
                         <property name="wrap_mode">word</property>
                         <property name="left_margin">3</property>
                         <property name="right_margin">4</property>
+                        <property name="monospace">True</property>
                       </object>
                     </child>
                   </object>
@@ -1763,7 +1795,9 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
         <child>
           <object class="GtkStatusbar" id="main_statusbar">
             <property name="visible">True</property>
+            <property name="sensitive">False</property>
             <property name="can_focus">False</property>
+            <property name="valign">end</property>
             <property name="baseline_position">bottom</property>
           </object>
           <packing>
@@ -2734,6 +2768,7 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
     <property name="title" translatable="yes">Symbol table</property>
     <property name="default_width">245</property>
     <property name="default_height">265</property>
+    <property name="icon_name">dictionary</property>
     <property name="type_hint">dialog</property>
     <signal name="delete-event" handler="gtk_widget_hide" swapped="no"/>
     <signal name="destroy" handler="gtk_widget_hide" swapped="no"/>
