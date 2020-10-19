@@ -42,8 +42,8 @@ static GtkTreeView *symbols_view_ = NULL;
 static GtkListStore *symbols_store_ = NULL;
 static const gchar *SYMBOLS_VIEW_NAME_ = "symbols_view";
 
-static const gchar *bp_stock_id_ = NULL;
-static const gchar *pc_stock_id_ = NULL;
+static const gchar *bp_stock_id_ = "gtk-stop";
+static const gchar *pc_stock_id_ = "gtk-go-forward";
 static const guint bp_stock_size_ = GTK_ICON_SIZE_MENU;
 
 enum {
@@ -147,7 +147,6 @@ fill_symbols_ (const mix_symbol_table_t *table)
 static void
 init_clist_ (void)
 {
-  // GtkStockItem item;
 
   GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
   GtkCellRenderer *bprenderer = gtk_cell_renderer_pixbuf_new ();
@@ -188,16 +187,6 @@ init_clist_ (void)
      gtk_tree_view_column_new_with_attributes ("Source", renderer,
                                                "text", CLIST_CODE_COL,
                                                NULL));
-
-  /* if (gtk_stock_lookup (GTK_STOCK_STOP, &item)) */
-  /*   { */
-  /*     bp_stock_id_ = item.stock_id; */
-  /*   } */
-
-  /* if (gtk_stock_lookup (GTK_STOCK_GO_FORWARD, &item)) */
-  /*   { */
-  /*     pc_stock_id_ = item.stock_id; */
-  /*   } */
 
   symbols_dlg_ = NULL;
   symbols_view_ = NULL;
