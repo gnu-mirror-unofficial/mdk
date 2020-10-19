@@ -107,7 +107,7 @@
                       <object class="GtkLabel" id="mdk_web">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="label" translatable="yes">http://www.gnu.org/software/mdk/mdk.html</property>
+                        <property name="label" translatable="yes">&lt;a href="http://www.gnu.org/software/mdk/mdk.html"&gt;www.gnu.org/software/mdk&lt;/a&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="justify">center</property>
                         <property name="selectable">True</property>
@@ -140,7 +140,7 @@
                       <object class="GtkLabel" id="label1442">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;small&gt;Copyright (C) 2001-2019
+                        <property name="label" translatable="yes">&lt;small&gt;Copyright (C) 2000-2020
 Free Software Foundation, Inc&lt;/small&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="justify">center</property>
