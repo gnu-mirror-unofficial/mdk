@@ -1130,7 +1130,7 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <signal name="activate" handler="on_file_exit_activate" swapped="no"/>
-                        <accelerator key="Q" signal="activate" modifiers="GDK_CONTROL_MASK | GDK_MOD1_MASK"/>
+                        <accelerator key="Q" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                   </object>
@@ -1803,7 +1803,6 @@ Free Software Foundation, Inc&lt;/small&gt;</property>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
-            <property name="pack_type">end</property>
             <property name="position">3</property>
           </packing>
         </child>
