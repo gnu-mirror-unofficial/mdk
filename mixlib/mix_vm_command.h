@@ -1,7 +1,7 @@
 /* -*-c-*- ---------------- mix_vm_command.h :
  * declarations for mix_vm_command_t, describing commands issued to a vm
  * ------------------------------------------------------------------
- * Copyright (C) 2001, 2006, 2007, 2014 Free Software Foundation, Inc.
+ * Copyright (C) 2001, 2006, 2007, 2014, 2022 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -75,6 +75,7 @@ typedef enum {
   MIX_CMD_W2D,			/* print word in decimal notation */
   MIX_CMD_STRACE,		/* enable/disable instruction traces */
   MIX_CMD_PBT,			/* print backtrace */
+  MIX_CMD_SBT,			/* set backtrace limit */
   MIX_CMD_STIME,		/* enable/disable timing statistics */
   MIX_CMD_PTIME,		/* print current time statistics */
   MIX_CMD_SDDIR,		/* set device directory */
