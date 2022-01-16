@@ -9,7 +9,7 @@
 # WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-AC_INIT([GNU MDK],[1.3.0],[bug-mdk@gnu.org],[mdk])
+AC_INIT([GNU MDK],[1.3.1],[bug-mdk@gnu.org],[mdk])
 AC_CONFIG_SRCDIR([mixlib/mix.h])
 AM_INIT_AUTOMAKE
 
