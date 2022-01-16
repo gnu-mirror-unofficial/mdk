@@ -1,5 +1,5 @@
 # Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2008, 2009,
-#               2010, 2013, 2014, 2015, 2019, 2020 Free Software Foundation, Inc.
+#               2010, 2013, 2014, 2015, 2019, 2020, 2022 Free Software Foundation, Inc.
 #
 # This file is free software; as a special exception the author gives
 # unlimited permission to copy and/or distribute it, with or without
@@ -9,7 +9,7 @@
 # WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-AC_INIT([GNU MDK],1.3.0,[bug-mdk@gnu.org],mdk)
+AC_INIT([GNU MDK],[1.3.0],[bug-mdk@gnu.org],[mdk])
 AC_CONFIG_SRCDIR([mixlib/mix.h])
 AM_INIT_AUTOMAKE
 
@@ -17,10 +17,18 @@ AM_CONFIG_HEADER(config.h)
 
 AM_MAINTAINER_MODE
 
-AC_ISC_POSIX
+AC_SEARCH_LIBS([strerror],[cposix])
 AC_PROG_CC
-AM_PROG_CC_STDC
-AC_HEADER_STDC
+dnl AM_PROG_CC_STDC
+dnl m4_warn([obsolete],
+dnl [The preprocessor macro `STDC_HEADERS' is obsolete.
+dnl   Except in unusual embedded environments, you can safely include all
+dnl   ISO C90 headers unconditionally.])dnl
+dnl # Autoupdate added the next two lines to ensure that your configure
+dnl # script's behavior did not change.  They are probably safe to remove.
+dnl AC_CHECK_INCLUDES_DEFAULT
+dnl AC_PROG_EGREP
+
 
 AM_PROG_LEX
 AC_PROG_RANLIB
@@ -42,7 +50,7 @@ fi
 dnl i18n stuff
 AM_GNU_GETTEXT_VERSION(0.14)
 AM_GNU_GETTEXT
-AC_PROG_INTLTOOL([0.37], [no-xml])
+IT_PROG_INTLTOOL([0.37],[no-xml])
 
 GETTEXT_PACKAGE=mdk
 AC_SUBST(GETTEXT_PACKAGE)
